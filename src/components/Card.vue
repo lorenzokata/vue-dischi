@@ -1,7 +1,9 @@
 <template>
   <div class="card d-flex flex-column justify-content-between align-items-center">
     <img class="w-100" :src="cd.poster" alt="">
-    <!-- <span></span> -->
+    <span class="title text-center text-uppercase fw-bolder">{{ cd.title }}</span>
+    <span class="author fw-bold text-secondary">{{ cd.author }}</span>
+    <span class="year fw-bold text-secondary">{{ cd.year }}</span>
   </div>
 </template>
 
@@ -18,7 +20,14 @@ export default {
 <style scoped lang="scss">
 
 .card{
-  height: 100%;
+  height: 320px;
+  background-color: #2E3A46;
+  padding: 20px;
+
+  .title{
+    color: white;
+    // font-weight: 900;
+  }
 }
 
 </style>
