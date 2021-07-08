@@ -1,9 +1,9 @@
 <template>
-  <main>
+  <main class="overflow-auto">
     <div class="container">
-      <div class="row row-col-5 g-2">
-        <div class="card-box" v-for="cd in cds" :key="cd.id" :cd="cd">
-          <Card/>
+      <div class="row row-cols-5">
+        <div class="card-box g-5" v-for="(cd,index) in cds" :key="index">
+          <Card :cd="cd"/>
         </div>
       </div>
     </div>
@@ -12,12 +12,14 @@
 
 <script>
 
-import Card from './Card.vue';
+import Card from '@/components/Card.vue';
 import axios from 'axios'
 
 export default {
   name: 'Main',
-  components: Card,
+  components: {
+    Card
+  },
   data() {
     return {
       apiURL : 'https://flynn.boolean.careers/exercises/api/array/music',
@@ -33,9 +35,7 @@ export default {
       axios
         .get(this.apiURL)
         .then(response => {
-          console.log();
           this.cds = response.data.response;
-          console.log(this.cds);
           this.loading = false;
         })
         .catch(error => {
@@ -51,6 +51,7 @@ export default {
 
 main{
   background-color: #1E2D3B;
+  height: calc(100vh - 100px);
 }
 
 </style>
