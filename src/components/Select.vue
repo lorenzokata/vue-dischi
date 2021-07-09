@@ -1,6 +1,7 @@
 <template>
-  <select name="genre" id="genre">
-    <option v-for="(genre, index) in genres" :key="index" value="">{{genre.genre}}</option>
+  <select name="genre" id="genre" v-model="genreSelected" @change="changeGenre">
+    <option value="All">All</option>
+    <option v-for="(genre, index) in genres" :key="index" :value="genre">{{genre}}</option>
   </select>
 </template>
 
@@ -12,15 +13,26 @@ export default {
   name: 'Select',
   data() {
     return {
-      genres: ''
+      genres: [],
+      genreSelected: ''
     }
   },
+
   created() {
-    eventBus.$on('selectGenre', element => {
-      this.genres = element
-      console.log(this.genres);
+    eventBus.$on('selectGenre', array => {
+      array.forEach(oggetto => {
+        if (!this.genres.includes(oggetto.genre)) {
+          this.genres.push(oggetto.genre)
+        }
+      });
     })
   },
+
+  methods: {
+    changeGenre(){
+      eventBus.$emit('changeGenre', this.genreSelected)
+    }
+  }
 }
 
 </script>
