@@ -1,12 +1,19 @@
 <template>
-  <header>
+  <header class="d-flex justify-content-between align-items-center pe-3">
     <img src="@/assets/logo.png" alt="spotify logo">
+    <Select/>
   </header>
 </template>
 
 <script>
+
+import Select from './Select.vue'
+
 export default {
   name: 'Header',
+  components:{
+    Select
+  } 
 }
 </script>
 
@@ -21,6 +28,7 @@ header{
   img{
     height: 80px;
   }
+
 }
 
 </style>

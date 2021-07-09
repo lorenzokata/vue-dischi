@@ -2,7 +2,7 @@
   <main class="overflow-auto">
     <div class="container">
       <div class="row row-cols-5">
-        <div class="card-box g-5" v-for="(cd,index) in cds" :key="index">
+        <div class="g-5" v-for="(cd,index) in cds" :key="index">
           <Card :cd="cd"/>
         </div>
       </div>
@@ -14,12 +14,14 @@
 
 import Card from '@/components/Card.vue';
 import axios from 'axios'
+import {eventBus} from '../main.js'
 
 export default {
   name: 'Main',
   components: {
     Card
   },
+
   data() {
     return {
       apiURL : 'https://flynn.boolean.careers/exercises/api/array/music',
@@ -31,12 +33,13 @@ export default {
     this.getCds();
   },
   methods: {
-    getCds(){
+    getCds(){ 
       axios
         .get(this.apiURL)
         .then(response => {
           this.cds = response.data.response;
           this.loading = false;
+          eventBus.$emit('selectGenre', this.cds)
         })
         .catch(error => {
           console.log('Errore: ', error);
